@@ -1,0 +1,37 @@
+{% extends 'components/layout.html' %}
+
+
+{% block title %}
+    Home - Fruitables
+{% endblock %}
+    
+
+{% block content %}
+
+{% include 'components/header.html' %}
+
+
+{% if fruits %}
+
+    {% include 'components/hero.html' %}
+
+    {% include 'components/features.html' %}
+
+    {% include 'components/fruits_shop.html' %}
+
+    {% include 'components/banner.html' %}
+
+    {% include 'components/facts.html' %}
+
+    {% include 'components/testimony_box.html' %}
+
+    <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+
+{% else %}
+
+    {% include 'components/loader.html' %}
+    
+{% endif %}
+    
+
+{% endblock %}

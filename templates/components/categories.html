@@ -1,0 +1,18 @@
+<div class="col-lg-8 text-end">
+    <ul class="nav nav-pills d-inline-flex text-center mb-5">
+        <li class="nav-item">
+            <a class="d-flex m-2 py-2 bg-light rounded-pill active"  href="{% url 'home' %}">
+                <span class="text-dark" style="width: 130px;">All Products</span>
+            </a>
+        </li>
+        
+        {% for category in categories %}
+            <li class="nav-item">
+                <a class="d-flex py-2 m-2 bg-light rounded-pill" href="{% url 'home' %}?search={{category.category}}">
+                    <span class="text-dark" style="width: 130px;">{{category.category}}</span>
+                </a>
+            </li>
+        {% endfor %}
+            
+    </ul>
+</div>

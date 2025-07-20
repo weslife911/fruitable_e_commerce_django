@@ -1,0 +1,25 @@
+{% extends 'components/layout.html' %}
+
+{% block title %}
+    Dashboard - Fruitables
+{% endblock %}
+
+{% block content %}
+
+{% include 'components/admin/navbar.html' %}
+
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6">Admin Dashboard</h1>
+</div>
+
+<div class="container-fluid py-5 mt-5">
+    <div class="container">
+        <h1 class="mb-4">Welcome to the Admin Dashboard, {{request.user}} </h1>
+        <p>Use the navigation to manage your products.</p>
+    </div>
+</div>
+
+{% include 'components/admin/footer.html' %}
+    
+{% endblock %}
+    

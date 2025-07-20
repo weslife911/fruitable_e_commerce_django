@@ -1,0 +1,42 @@
+{% extends 'components/layout.html' %}
+
+{% block title %}
+    Add Testimony - Fruitables
+{% endblock %}
+
+{% block content %}
+
+{% include 'components/admin/navbar.html' %}
+
+<div class="container-fluid py-5 mt-5">
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <label for="productName" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="fullName" name="name" required>
+                </div>
+                <div class="col-lg-6">
+                    <label for="productProfession" class="form-label">Profession</label>
+                    <input type="text" class="form-control" id="productCategory" name="profession" required>
+                </div>
+            </div>
+                <div class="row g-4">
+                <div class="col-lg-6">
+                    <label for="productRating" class="form-label">Profile Pic</label>
+                    <input type="file" class="form-control" id="productProfile Pic" name="profile_pic">
+                </div>
+                </div>
+            <div class="row g-4">
+                <div class="col-lg-12">
+                    <label for="productDescription" class="form-label">Testimony</label>
+                    <textarea class="form-control" id="productDescription" rows="4" name="testimony" required></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Add Product</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'components/layout.html' %}
+
+{% block title %}
+    Edit Product - Fruitables
+{% endblock %}
+
+{% block content %}
+
+{% include 'components/admin/navbar.html' %}
+
+
+<div class="container-fluid py-5 mt-5">
+        <div class="container">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <label for="productName" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="productName" name="name" value="{{product.name}}" required>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="productCategory" class="form-label">Category</label>
+                        <input type="text" class="form-control" id="productCategory" name="category" value="{{product.category}}" required>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <label for="productPrice" class="form-label">Price ($)</label>
+                        <input type="number" any="0.01" class="form-control" id="productPrice" name="price" value="{{product.price}}" required>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="productImage" class="form-label">Upload Image</label>
+                        <input type="file" class="form-control" id="productImage" name="image" value="{{product.image.url}}"  required>
+                    </div>
+                </div>
+                 <div class="row g-4">
+                    <div class="col-lg-6">
+                        <label for="productRating" class="form-label">Product Rating</label>
+                        <input type="number" class="form-control" id="productRating" name="rating" value="{{product.rating}}" required>
+                    </div>
+                 </div>
+                <div class="row g-4">
+                    <div class="col-lg-12">
+                        <label for="productDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="productDescription" rows="4" name="description" required>
+                            {{product.description}}
+                        </textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Update Product</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
