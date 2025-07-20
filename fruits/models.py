@@ -32,3 +32,13 @@ class Testimonial(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    fruit = models.ForeignKey(Fruits, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.fruit.name}"
