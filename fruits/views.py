@@ -22,7 +22,8 @@ def home_view(request):
         )
         if cart:
             return redirect("cart")
-    return render(request, "pages/home.html", {"fruits": fruits, "categories": categories, "testimonies": testimonies,})
+    cart = Cart.objects.filter(user=request.user.id)
+    return render(request, "pages/home.html", {"fruits": fruits, "categories": categories, "testimonies": testimonies, "cart": cart})
 
 def contact_view(request):
     if request.method == "POST":
@@ -34,7 +35,8 @@ def contact_view(request):
             fail_silently=False
         )
         return redirect("home")
-    return render(request, "pages/contact.html")
+    cart = Cart.objects.filter(user=request.user)
+    return render(request, "pages/contact.html", {"cart": cart})
 
 def product_view(request, pk):
     fruit = Fruits.objects.get(pk=pk)
@@ -43,15 +45,23 @@ def product_view(request, pk):
     return render(request, "pages/shop_detail.html", {"fruit" : fruit, "fruits": fruits, "categories": categories,})
 
 def cart_view(request):
-    carts = Cart.objects.filter(user=request.user)
-    if request.method == "POST":
-        cart = Cart.objects.get(pk=request.POST.get("cart_id"))
-        if request.POST.get("action") == "delete":
-            cart.delete()
-            return redirect("cart")
-        elif request.POST.get("action") == "update":
-            print(request.POST)
-            # cart.quantity = int(request.POST.get("quantity"))
-            # cart.save()
-            return redirect("cart")
-    return render(request, "pages/cart.html", {"carts": carts})
+    if request.user.is_authenticated:
+        carts = Cart.objects.filter(user=request.user)
+        if request.method == "POST":
+            cart = Cart.objects.get(pk=request.POST.get("cart_id"))
+            if request.POST.get("action") == "delete":
+                cart.delete()
+                return redirect("cart")
+            elif request.POST.get("action") == "update":
+                print(request.POST)
+                # cart.quantity = int(request.POST.get("quantity"))
+                # cart.save()
+                return redirect("cart")
+        cart = Cart.objects.filter(user=request.user)
+        return render(request, "pages/cart.html", {"carts": carts, "cart": cart})
+    else:
+        return redirect("login")
+    
+def testimonial_view(request):
+    testimonies = Testimonial.objects.all()
+    return render(request, "pages/testimonial.html", {"testimonies": testimonies})
