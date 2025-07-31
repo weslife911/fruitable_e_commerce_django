@@ -1,5 +1,6 @@
 from django.db import models
-from users.models import User 
+from users.models import User
+from decimal import Decimal
 
 # Create your models here.
 class Category(models.Model):
@@ -41,4 +42,8 @@ class Cart(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.fruit.name}"
+        return f"{self.quantity} x {self.fruit.name} for {self.user.username}"
+    
+    @property
+    def total_price(self):
+        return self.quantity * self.fruit.price

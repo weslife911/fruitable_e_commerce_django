@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.core.mail import send_mail
 from decouple import config
 from django.db.models import Count
+from decimal import Decimal
 
 # Create your views here.
 def home_view(request):
@@ -53,14 +54,19 @@ def cart_view(request):
                 cart.delete()
                 return redirect("cart")
             elif request.POST.get("action") == "update":
-                print(request.POST)
-                # cart.quantity = int(request.POST.get("quantity"))
-                # cart.save()
-                return redirect("cart")
+                if request.POST.get("quantity") == 0:
+                    cart.delete()
+                else:
+                    cart.quantity = request.POST.get("quantity")
+                    cart.save()
+        grand_total = Decimal('0.00')
+        for item in carts:
+            grand_total += item.total_price
         cart = Cart.objects.filter(user=request.user)
-        return render(request, "pages/cart.html", {"carts": carts, "cart": cart})
+        return render(request, "pages/cart.html", {"carts": carts, "cart": cart, "grand_total": grand_total,})
     else:
         return redirect("login")
+    
     
 def testimonial_view(request):
     testimonies = Testimonial.objects.all()

@@ -13,27 +13,30 @@
             <p class="mb-0 mt-4">{{cart.fruit.price}} $</p>
         </td>
         <td>
-            <div class="input-group quantity mt-4" style="width: 100px;">
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="cart_id" value="{{ cart.id }}">
-                    <input type="hidden" name="action" value="update">
-                    <div class="input-group-btn">
-                        <button class="btn btn-sm btn-minus rounded-circle bg-light border"  >
-                        <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                    <input type="text" class="form-control form-control-sm text-center border-0" value="{{cart.quantity}}" name="quantity" readonly>
-                    <div class="input-group-btn">
-                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </td>
-        <td>
-            <p class="mb-0 mt-4">2.99 $</p>
+            <form action="" method="post" id="cartUpdateForm">
+    {% csrf_token %}
+    <input type="hidden" name="cart_id" value="{{cart.id}}">
+    <input type="hidden" name="action" value="update">
+    <!-- <input type="hidden" name="quantity" id="hiddenQuantityInput"> -->
+
+    <div class="input-group quantity mt-4" style="width: 100px;">
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-sm btn-minus rounded-circle bg-light border" data-action="minus">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+        <input type="text" class="form-control form-control-sm text-center border-0" name="quantity" value="{{ cart.quantity }}" readonly>
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-sm btn-plus rounded-circle bg-light border" data-action="plus">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary bg-light border mt-4">
+        Update
+    </button>
+</form>
         </td>
         <td>
             <form action="" method="post">
@@ -44,6 +47,7 @@
                     <i class="fa fa-times text-danger"></i>
                 </button>
             </form>
+            
         </td>
 
     </tr>
