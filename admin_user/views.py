@@ -14,10 +14,9 @@ def admin_add_product_view(request):
         return redirect("home")
     elif request.user.is_authenticated == False:
         return redirect("home")
+    categories = Category.objects.all()
     if request.method == "POST":
-        category = Category.objects.create(
-            category=request.POST.get("category")
-        )
+        category = Category.objects.get(id=request.POST.get("category"))
         if category:
             fruit = Fruits.objects.create(
                 name=request.POST.get("name"),
@@ -28,9 +27,9 @@ def admin_add_product_view(request):
                 description=request.POST.get("description")
             )
             if fruit:
-                return redirect("products")
+                return redirect("add_product")
 
-    return render(request, "pages/admin/add_product.html")
+    return render(request, "pages/admin/add_product.html", {"categories": categories})
 
 def admin_products_view(request):
     if request.user.is_authenticated and request.user.is_superuser == False:

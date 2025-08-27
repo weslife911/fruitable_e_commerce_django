@@ -47,3 +47,7 @@ class Cart(models.Model):
     @property
     def total_price(self):
         return self.quantity * self.fruit.price
+    
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    fruit = models.ForeignKey(Fruits, on_delete=models.CASCADE)

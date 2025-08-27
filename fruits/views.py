@@ -41,9 +41,10 @@ def contact_view(request):
 
 def product_view(request, pk):
     fruit = Fruits.objects.get(pk=pk)
-    fruits = Fruits.objects.all()
+    related_fruits = Fruits.objects.filter(category=fruit.category.id)
+    print(related_fruits)
     categories = Category.objects.annotate(fruit_count=Count(fruit.category)).all()
-    return render(request, "pages/shop_detail.html", {"fruit" : fruit, "fruits": fruits, "categories": categories,})
+    return render(request, "pages/shop_detail.html", {"fruit" : fruit, "categories": categories, "fruits": related_fruits})
 
 def cart_view(request):
     if request.user.is_authenticated:

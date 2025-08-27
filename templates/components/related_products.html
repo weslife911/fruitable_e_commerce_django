@@ -1,24 +1,23 @@
-{% for fruitc in fruits %}
-    {% if fruitc.category == fruit.category %}
-        <div class="owl-carousel vegetable-carousel justify-content-center">
+{% for r_fruit in fruits %}
+    
+    <div class="owl-carousel vegetable-carousel justify-content-center">
         <div class="border border-primary rounded position-relative vesitable-item">
             <div class="vesitable-img">
-                <img src="{{fruitc.image.url}}" class="img-fluid w-100 rounded-top" alt="">
+                <img src="{{r_fruit.image.url}}" class="img-fluid w-100 rounded-top" alt="">
             </div>
             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">{{fruitc.category}}</div>
             <div class="p-4 pb-0 rounded-bottom">
-                <a href="{% url 'home' %}?search={{fruitc.category}}">
-                    <h4>{{fruitc.name}}</h4>
-                    <p>{{fruitc.description}}</p>
+                <a href="{% url 'home' %}?search={{r_fruit.category}}">
+                    <h4>{{r_fruit.name}}</h4>
+                    <p>{{r_fruit.description}}</p>
                 </a>
                 <div class="d-flex justify-content-between flex-lg-wrap">
-                    <p class="text-dark fs-5 fw-bold">${{fruitc.price}} / kg</p>
+                    <p class="text-dark fs-5 fw-bold">${{r_fruit.price}} / kg</p>
                     <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                 </div>
             </div>
         </div>
     </div>
-    {% endif %}
-        
-{% endfor %}
     
+
+{% endfor %} 
