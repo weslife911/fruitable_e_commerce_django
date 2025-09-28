@@ -9,7 +9,7 @@ from decimal import Decimal
 # Create your views here.
 def home_view(request):
     fruits = Fruits.objects.filter(
-        Q(name__icontains=request.GET.get("search", "")) | 
+        Q(name__icontains=request.GET.get("search", "")) |
         Q(category__category__icontains=request.GET.get("search", ""))
     )
     categories = Category.objects.all()
@@ -42,8 +42,7 @@ def contact_view(request):
 def product_view(request, pk):
     fruit = Fruits.objects.get(pk=pk)
     related_fruits = Fruits.objects.filter(category=fruit.category.id)
-    print(related_fruits)
-    categories = Category.objects.annotate(fruit_count=Count(fruit.category)).all()
+    categories = Category.objects.all()
     return render(request, "pages/shop_detail.html", {"fruit" : fruit, "categories": categories, "fruits": related_fruits})
 
 def cart_view(request):
@@ -67,8 +66,8 @@ def cart_view(request):
         return render(request, "pages/cart.html", {"carts": carts, "cart": cart, "grand_total": grand_total,})
     else:
         return redirect("login")
-    
-    
+
+
 def testimonial_view(request):
     testimonies = Testimonial.objects.all()
     return render(request, "pages/testimonial.html", {"testimonies": testimonies})
